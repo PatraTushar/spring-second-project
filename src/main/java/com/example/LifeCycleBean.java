@@ -43,7 +43,7 @@ public class LifeCycleBean {
     */
     public void init() {
 
-        System.out.println("init() called - Bean Initialized");
+        System.out.println("init() called - Bean Initialized");    // Initialized means the object is created and prepared for use by Spring.
 
         notificationService.send("Hello from init()");
     }
