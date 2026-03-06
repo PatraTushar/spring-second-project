@@ -22,7 +22,7 @@ public class MainApp {
         // This is the MOST important step.
         // When this line runs, Spring starts container initialization.
 
-        //Spring initialization mainly means Spring starts the container, processes configuration/annotations, and creates & stores beans inside the IoC container.
+
         // ======================================================
 
         ApplicationContext context =

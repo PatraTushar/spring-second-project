@@ -39,7 +39,7 @@ If found → Spring creates objects and stores them
 inside the IoC container.
 ===============================================================
 */
-@ComponentScan(basePackages = {"com.example", "com.loose"})
+@ComponentScan(basePackages =  {"com.example", "com.loose"})
 public class AppConfig {
 
 
@@ -74,6 +74,7 @@ public class AppConfig {
         implementing NotificationService.
 
         When found → Spring injects it here.
+        // Injection means giving that stored object to another class that needs it.
         ===============================================================
         */
 
