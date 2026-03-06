@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /*
-===============================================================
+========================= ======================================
 STEP 4 (Executed During Container Initialization)
 
 Spring reads this class because it was passed to
