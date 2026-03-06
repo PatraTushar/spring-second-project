@@ -1,6 +1,6 @@
 package com.example;
 
-import com.loose.NotificationService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +40,7 @@ If found → Spring creates objects and stores them
 inside the IoC container.
 ===============================================================
 */
-@ComponentScan(basePackages =  {"com.example", "com.loose"})
+@ComponentScan(basePackages = "com.example")
 public class AppConfig {
 
 
