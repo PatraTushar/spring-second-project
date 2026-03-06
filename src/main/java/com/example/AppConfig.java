@@ -58,6 +58,8 @@ public class AppConfig {
     Destroy Method → cleanUp()
     Dependency     → NotificationService
 
+    Bean Definition is stored inside the IoC container as metadata.
+
     Spring now knows how to create this bean.
     ===============================================================
     */
