@@ -14,6 +14,7 @@ AnnotationConfigApplicationContext(AppConfig.class)
 
 @Configuration tells Spring:
 This class contains bean definitions.
+Bean Definition = Metadata (information) about how to create a bean.
 ===============================================================
 */
 @Configuration
