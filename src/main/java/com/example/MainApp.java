@@ -71,6 +71,8 @@ public class MainApp {
 
         System.out.println("Closing Spring Context");
 
+        lifeCycleBean.cleanUp();
+
 
         // ======================================================
         // STEP 6
