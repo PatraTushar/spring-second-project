@@ -6,13 +6,19 @@ public class LifeCycleBean {
 
     private NotificationService notificationService;
 
-    // ---------------------------------------------------
-    // STEP 1 :
-    // Constructor is called by Spring when bean is created
-    //
-    // This happens inside @Bean method
-    // After dependency injection
-    // ---------------------------------------------------
+    /*
+    ===============================================================
+    STEP 9 (Triggered from AppConfig @Bean method)
+
+    When Spring executes:
+
+    return new LifeCycleBean(notificationService);
+
+    The constructor runs.
+
+    Dependency has already been injected by Spring.
+    ===============================================================
+    */
     public LifeCycleBean(NotificationService notificationService) {
 
         System.out.println("Constructor Called - Dependency Injected");
@@ -20,14 +26,21 @@ public class LifeCycleBean {
         this.notificationService = notificationService;
     }
 
-    // ---------------------------------------------------
-    // STEP 2 :
-    // After constructor finishes,
-    // Spring calls initMethod automatically
-    //
-    // Because we wrote:
-    // @Bean(initMethod="init")
-    // ---------------------------------------------------
+
+    /*
+    ===============================================================
+    STEP 10
+
+    After bean creation,
+    Spring automatically calls init()
+
+    Because we configured:
+
+    @Bean(initMethod="init")
+
+    This happens during container initialization.
+    ===============================================================
+    */
     public void init() {
 
         System.out.println("init() called - Bean Initialized");
@@ -35,23 +48,33 @@ public class LifeCycleBean {
         notificationService.send("Hello from init()");
     }
 
-    // ---------------------------------------------------
-    // STEP 3 :
-    // Application manually calls this method
-    // ---------------------------------------------------
+
+    /*
+    ===============================================================
+    STEP 11
+
+    This method is called manually by the application
+    from MainApp.
+    ===============================================================
+    */
     public void performTask() {
 
         System.out.println("Bean is Ready for Use");
     }
 
-    // ---------------------------------------------------
-    // STEP 4 :
-    // When container is closed,
-    // Spring calls destroyMethod automatically
-    //
-    // Because we wrote:
-    // destroyMethod="cleanUp"
-    // ---------------------------------------------------
+
+    /*
+    ===============================================================
+    STEP 12
+
+    When Spring container shuts down,
+    Spring automatically calls this method.
+
+    Because we configured:
+
+    destroyMethod="cleanUp"
+    ===============================================================
+    */
     public void cleanUp() {
 
         System.out.println("cleanUp() called - Bean Destroyed");

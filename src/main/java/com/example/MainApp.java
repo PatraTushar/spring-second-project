@@ -7,82 +7,77 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        // Step 1: Create IOC Container
-        // Spring reads AppConfig
-        // Then scans packages
-        // Then creates beans
-//        ApplicationContext context =
-//                new AnnotationConfigApplicationContext(AppConfig.class);
-//
-//
-//        // Step 2: Ask container for bean with name "myBean"
-//        GreetingService greetingService =
-//                (GreetingService) context.getBean("myBean");
-//
-//
-//        // Step 3: Call method on bean
-//        greetingService.sayHello();
-//
+        // ======================================================
+        // STEP 1
+        // JVM starts execution from main() method
+        // ======================================================
+
+        System.out.println("Starting Spring Application Context");
 
 
-        // ----------------------------------------------------- //
+        // ======================================================
+        // STEP 2
+        // Creating the Spring IoC Container
+        //
+        // This is the MOST important step.
+        // When this line runs, Spring starts container initialization.
+        // ======================================================
+
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
 
 
+        // ======================================================
+        // STEP 3
+        // During container creation Spring does internally:
+        //
+        // 1. Reads AppConfig class
+        // 2. Processes @Configuration
+        // 3. Processes @ComponentScan
+        // 4. Finds components like GreetingService
+        // 5. Processes @Bean methods
+        // 6. Creates beans
+        // 7. Injects dependencies
+        // 8. Calls init methods
+        //
+        // After all beans are ready, control returns to main().
+        // ======================================================
 
 
+        System.out.println("Retrieving Lifecycle Bean");
 
 
+        // ======================================================
+        // STEP 4
+        // Requesting a bean from the IoC container
+        //
+        // Spring searches inside container and returns
+        // the already created LifeCycleBean object.
+        // ======================================================
+
+        LifeCycleBean lifeCycleBean = context.getBean(LifeCycleBean.class);
 
 
-                // Step 1: Program starts from main method
-                // JVM begins execution from here
-                System.out.println("Starting Spring Application Context");
+        // ======================================================
+        // STEP 5
+        // Application uses the bean
+        // This is normal method execution.
+        // ======================================================
 
-                // Step 2: Creating the Spring IoC Container
-                // AnnotationConfigApplicationContext is a container implementation
-
-                // What Spring does internally here:
-
-                // 1. Create IoC container object
-                // 2. Read configuration class AppConfig
-                // 3. Process annotations like:
-                //      @Configuration
-                //      @ComponentScan
-                //      @Bean
-                // 4. Start scanning packages for components
-                // 5. Create beans and store them inside IoC container
-
-                ApplicationContext context =
-                        new AnnotationConfigApplicationContext(AppConfig.class);
+        lifeCycleBean.performTask();
 
 
-                // Step 3: Request bean from IoC container
-
-                System.out.println("Retrieving Lifecycle Bean");
-
-                // Here Spring searches inside IoC container:
-                // "Do I have an object of LifeCycleBean?"
-
-                // Since LifeCycleBean is defined using @Bean in AppConfig
-                // Spring already created the object during container startup
-
-                LifeCycleBean lifeCycleBean = context.getBean(LifeCycleBean.class);
+        System.out.println("Closing Spring Context");
 
 
-                // Step 4: Using the bean
-
-                lifeCycleBean.performTask();
-
-
-                // Step 5: Application finishing
-
-                System.out.println("Closing Spring Context");
-
-                // NOTE:
-                // destroy method will run ONLY if container is closed
-                // Example:
-                // ((AnnotationConfigApplicationContext) context).close();
-
-            }
-        }
-
+        // ======================================================
+        // STEP 6
+        // Destroy method runs ONLY when container is closed.
+        //
+        // Example:
+        // ((AnnotationConfigApplicationContext) context).close();
+        //
+        // Then Spring will call cleanUp().
+        // ======================================================
+    }
+}

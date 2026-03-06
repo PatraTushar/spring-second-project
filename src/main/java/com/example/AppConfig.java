@@ -6,80 +6,86 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /*
-====================================================================
-STEP 1:
-When Spring sees @Configuration,
-it understands:
+===============================================================
+STEP 4 (Executed During Container Initialization)
 
-➡ This class contains instructions to create beans.
-➡ Spring will read this class during container startup.
-====================================================================
+Spring reads this class because it was passed to
+AnnotationConfigApplicationContext(AppConfig.class)
+
+@Configuration tells Spring:
+This class contains bean definitions.
+===============================================================
 */
 @Configuration
 
-
 /*
-====================================================================
-STEP 2:
-@ComponentScan tells Spring:
+===============================================================
+STEP 5
 
-➡ Go inside these packages.
-➡ Search for classes with @Component, @Service, @Repository, etc.
-➡ If found, create objects automatically.
-➡ Store them inside the IoC container.
+Spring processes @ComponentScan.
 
-Important:
-ComponentScan runs during container initialization.
-====================================================================
+It scans these packages:
+
+com.example
+com.loose
+
+Spring searches for classes with:
+@Component
+@Service
+@Repository
+@Controller
+
+If found → Spring creates objects and stores them
+inside the IoC container.
+===============================================================
 */
 @ComponentScan(basePackages = {"com.example", "com.loose"})
 public class AppConfig {
 
 
     /*
-    ====================================================================
-    STEP 3:
-    Spring sees this @Bean method during startup.
+    ===============================================================
+    STEP 7
 
-    Important Concept:
+    Spring sees this @Bean method.
 
-    ❌ Spring does NOT immediately execute this method.
-    ✅ Spring only registers it as a Bean Definition.
+    It registers a bean definition:
 
-    What Spring stores internally:
+    Bean Name      → lifeCycleBean
+    Bean Type      → LifeCycleBean
+    Init Method    → init()
+    Destroy Method → cleanUp()
+    Dependency     → NotificationService
 
-        Bean Name       -> lifeCycleBean
-        Bean Class       -> LifeCycleBean
-        Init Method      -> init
-        Destroy Method   -> cleanUp
-        Dependencies     -> NotificationService
-
-    So Spring remembers:
-    "When I create this bean, I must call init().
-     When container closes, I must call cleanUp()."
-    ====================================================================
+    Spring now knows how to create this bean.
+    ===============================================================
     */
     @Bean(initMethod = "init", destroyMethod = "cleanUp")
     public LifeCycleBean lifeCycleBean(NotificationService notificationService) {
 
         /*
-        ====================================================================
-        STEP 4:
+        ===============================================================
+        STEP 8
+
         Before executing this method,
-        Spring checks:
+        Spring resolves dependencies.
 
-        ➜ Is there a bean in the container
-           that implements NotificationService?
+        It searches the container for a bean
+        implementing NotificationService.
 
-        If yes → Inject it here automatically.
-
-        This is Dependency Injection.
-
-        Spring now creates the LifeCycleBean object.
-        Constructor will run at this point.
-        ====================================================================
+        When found → Spring injects it here.
+        ===============================================================
         */
 
+        /*
+        ===============================================================
+        STEP 9
+
+        Spring now creates LifeCycleBean object.
+
+        This calls the constructor of LifeCycleBean.
+        ===============================================================
+        */
         return new LifeCycleBean(notificationService);
     }
 }
