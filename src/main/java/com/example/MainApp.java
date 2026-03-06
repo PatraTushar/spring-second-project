@@ -18,7 +18,7 @@ public class MainApp {
         // ======================================================
         // STEP 2
         // Creating the Spring IoC Container
-        //
+        //When you create the Spring IoC container, Spring starts loading configuration, scanning classes, creating beans, resolving dependencies, and preparing everything before your application runs.
         // This is the MOST important step.
         // When this line runs, Spring starts container initialization.
 
