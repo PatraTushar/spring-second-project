@@ -15,6 +15,9 @@ inside the IoC container.
 
 Bean Name → myBean
 Bean Type → GreetingService
+
+//Container entry becomes:
+//myBean → GreetingService object
 ===============================================================
 */
 @Component("myBean")
